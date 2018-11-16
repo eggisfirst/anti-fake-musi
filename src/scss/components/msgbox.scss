@@ -1,0 +1,97 @@
+.bg{
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+  .box{
+    width: 80vw;
+    height: 64.66vw;
+    background-color: #f0f0f0;
+	  box-shadow: 0px 4px 8px 0px 	rgba(0, 0, 0, 0.3);
+    border-radius: 2.66vw;
+    position: absolute;
+    top: 39.53vw;
+    left: 10vw;
+    h2{
+      font-size: 4.53vw;
+      color: #555;
+      margin-left: 6.66vw;
+      margin-right: 12vw;
+      line-height: 6.93vw;
+    } 
+    .close-icon{
+      background: url('../../images/close.png') no-repeat center;
+      background-size: 100% 100%;
+      width: 2.66vw;
+      height: 2.66vw;
+      position: absolute;
+      right: 2.66vw;
+      top: 2.66vw;
+    } 
+    .detail{
+      width: 66.66vw;
+      margin: 0 auto;
+      border-top: 1px solid #555;
+      position: relative; 
+      padding-top: 2vw;
+      
+      input{
+        height: 10.8vw;
+        width: 61vw;
+        border-bottom: 1px solid #999;
+        color: #999;
+        padding-left: 5.46vw;
+      }
+      .name-icon{
+        background: url('../../images/name.png') no-repeat center;
+        background-size: 100% 100%;
+        width: 4.4vw;
+        height: 4.8vw;
+        position: absolute;
+        left: 0;
+        top: 4.8vw;
+      }
+      .phone-icon{
+        background: url('../../images/phone.png') no-repeat center;
+        background-size: 100% 100%;
+        width: 4.4vw;
+        height: 4.8vw;
+        position: absolute;
+        left: 0;
+        top: 16.4vw;
+      }
+      .clear{
+        background: url('../../images/Cancel.png') no-repeat center;
+        background-size: 100% 100%;
+        width: 3.46vw;
+        height: 3.46vw; 
+        position: absolute;
+        right: 0;
+      }
+      .icon1{
+        top: 5.2vw;
+      }
+      .icon2{
+        top: 17vw;
+      }
+      .tips{
+        font-size: 3.2vw;
+        color:  #943f2a;
+        margin-top: 1.4vw;
+      }
+    }
+    .submit{
+      width: 100%;
+      height: 12vw;
+      background:  #cbb389;
+      position: absolute;
+      bottom: 0;
+      border-radius: 0px 0px 2.66vw 2.66vw;
+      font-weight: bold;
+      font-size: 4.8vw;
+    }
+}
