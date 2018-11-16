@@ -2,29 +2,19 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: url('../images/bg.png') no-repeat;
+  background-attachment: fixed;
 }
 .index{
   min-height: 100vh;
-  .banner{
-    width: 100vw;
-    height: 23.73vw;
-    background: url('../images/banner.png') no-repeat center;
-    background-size: 100% 100%;
-  }
   .content{
     width: 100vw;
+    padding-top: 5.6vw;
     .logo{
       background: url('../images/logo.png') no-repeat center;
       background-size: 100% 100%;
-      width: 21.33vw;
-      height: 17.73vw;
-      margin: auto;
-    }
-    .logo2{
-      background: url('../images/logo2.png') no-repeat center;
-      background-size: 100% 100%;
-      width: 50.66vw;
-      height: 11.73vw;
+      width: 62.4vw;
+      height: 23.46vw;
       margin: auto;
     }
     .p1{

@@ -5,8 +5,7 @@ import Variable from '../variable/variable'
 
 //css
 import '../scss/index.scss'
-import bannerImg1 from '../images/bg.jpg'
-import bannerImg2 from '../images/bg2.png'
+
 
 //components
 import Quality from '../components/quality'
@@ -69,41 +68,30 @@ class Index extends Component {
     console.log(111111,this.props.brandType)
   }
   render() {
-    let styleIndex1 = {
-      width:'100%',
-      height:'100%',
-      backgroundImage: `url(${bannerImg1})`
-    }
-    let styleIndex2 = {
-      width:'100%',
-      height:'100%',
-      backgroundImage: `url(${bannerImg2})` 
-    }
     let contentStyle1 = {
       paddingTop : '4.4vw'
     }
     let contentStyle2 = {
       paddingTop : '12.8vw'
     }
-    let bannerClass,indexClass,contentClass,logoClass,pClass;
+    let indexClass,contentClass,logoClass,pClass;
       if (this.state.brandJudge) {
-        bannerClass = 'banner';
-        indexClass = styleIndex1
+        
+      
         contentClass = contentStyle1
         logoClass = 'logo'
         pClass = 'p1'
       }else{
-        bannerClass = ''
-        indexClass = styleIndex2
+        
+       
         contentClass = contentStyle2
         logoClass = 'logo2'
         pClass = 'p2'
       }
     return (
-      <div className="index" style= {indexClass} >
-        <div className={bannerClass}></div>
-        <div className='content' style={contentClass}>
-          <div className={logoClass}></div>
+      <div className="index">
+        <div className='content'>
+          <div className='logo'></div>
           <p className={pClass}>{this.state.brand}正品查询平台</p>
           <Quality status={this.state.status} />
           <Error status={this.state.status}/>

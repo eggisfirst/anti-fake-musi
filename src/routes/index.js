@@ -17,9 +17,13 @@ const MyLoadingComponent = ({isLoading, error}) => {
   }
 }
 
-const [AsyncIndex] = [
+const [AsyncIndex,AsyncHome] = [
   Loadable({
     loader: () => import ('../pages/index'),
+    loading: MyLoadingComponent,
+    delay:300   //默认200
+  },{
+    loader: () => import ('../pages/home'),
     loading: MyLoadingComponent,
     delay:300   //默认200
   })
@@ -32,7 +36,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route path="/" exact component={AsyncIndex}/>
-        
+        <Route path="/home" exact component={AsyncHome}/>
       </Switch>
     )
   }
