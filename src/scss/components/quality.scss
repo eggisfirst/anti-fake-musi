@@ -1,42 +1,22 @@
 .quality{
   width: 100vw;
   .tips-picture{
-    width: 36vw;
-    height: 36vw;
+    width: 41.866vw;
+    height: 36.53vw;
     margin: auto;
-    background: url('../../images/quality.png') no-repeat center;
+    background: url('../../images/true.png') no-repeat center;
     background-size: 100% 100%;
-    margin-bottom: 6vw;
+    margin-bottom: 2.66vw;
   }
-  .tips-picture2{
-    width: 36vw;
-    height: 36vw;
-    margin: auto;
-    background: url('../../images/quality2.png') no-repeat center;
-    background-size: 100% 100%;
-    margin-bottom: 6vw;
-  }
-  .h1{
+  .h-text{
     font-size: 3.73vw;
-    color:  #1f1a17;
+    color:  #e5e5e5;
     text-align: center;
     line-height: 1em;
     font-weight: normal;
     span{
       font-size: 4.53vw;
-      color: #743c2e;
-      font-weight: bold;
-    }
-  }
-  .h2{
-    font-size: 3.73vw;
-    color:  #fff;
-    text-align: center;
-    line-height: 1em;
-    font-weight: normal;
-    span{
-      font-size: 4.53vw;
-      color: #c78414;
+      color: #f8b047;
       font-weight: bold;
     }
   }

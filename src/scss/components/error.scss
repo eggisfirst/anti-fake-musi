@@ -1,52 +1,29 @@
 .error{
   .tips-picture{
-    width: 36vw;
-    height: 36vw;
+    width: 41.06vw;
+    height: 35.86vw;
     margin: auto;
-    background: url('../../images/error.png') no-repeat center;
+    background: url('../../images/fault.png') no-repeat center;
     background-size: 100% 100%;
-    margin-bottom: 6vw;
+    margin-bottom: 5.6vw;
+    margin-top: 13.6vw;
   }
-  .tips-picture2{
-    width: 36vw;
-    height: 36vw;
-    margin: auto;
-    background: url('../../images/error2.png') no-repeat center;
-    background-size: 100% 100%;
-    margin-bottom: 6vw;
-  }
-  .h1{
+  .h-text{
     font-size: 3.73vw;
-    color:  #1f1a17;
+    color:  #e5e5e5;
     text-align: center;
     line-height: 1em;
     font-weight: normal;
     span{
       font-size: 4.53vw;
-      color: #743c2e;
+      color: #f14c81;
       font-weight: bold;
     }
     .takeback{
-      color: #1f1a17;
+      color: #e5e5e5;
       font-size: 3.73vw;
-      border-bottom: 2px solid #1f1a17;
+      border-bottom: 1px solid #e5e5e5;
     }
   }
-  .h2{
-    font-size: 3.73vw;
-    color:  #fff;
-    text-align: center;
-    line-height: 1em;
-    font-weight: normal;
-    span{
-      font-size: 4.53vw;
-      color: #c78414;
-      font-weight: bold;
-    }
-    .takeback{
-      color: #fff;
-      font-size: 3.73vw;
-      border-bottom: 2px solid #fff;
-    }
-  }
+
 }

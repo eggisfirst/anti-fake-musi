@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import axios from 'axios'
 //js
 import Variable from '../variable/variable'
 
@@ -12,89 +12,66 @@ import Quality from '../components/quality'
 import Error from '../components/error'
 import { connect } from 'react-redux';
 import { getCodeData } from '../action'
-import { getBrandType } from '../action'
+
 
 
 class Index extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      status: true,
-      brand: '',
-      brandJudge: ''
+      status: "",
+      brandJudge: '',
+      codedata: ''
     }
     //判断防伪码
     this.getData = () => {
       //获取防伪码code,判断是calia还是aimu，更换界面  
-      let code = Variable.getQueryString('c')
-      if (code == null) {
-        code = Variable.getQueryString('a')
-        this.props.getBrandType(false)
-        this.setState({
-          brand: '艾慕凯莎',
-          brandJudge: false
-        })
-      } else {
-        this.props.getBrandType(true)
-        this.setState({
-          brand: 'CALIA',
-          brandJudge: true
-      })
-      }
+      // let code = Variable.getQueryString('c')
+      // if (code == null) {
+      //   code = Variable.getQueryString('a')
+      //  
+      //   this.setState({
+      //     
+      //     brandJudge: false
+      //   })
+      // } else {
+      // 
+      //   this.setState({
+      //   
+      //     brandJudge: true
+      // })
+      // }
       //获取数据
-      Variable.sendCode(code)
+      let code = '3DFAC448-75BD-48E5-A272-236389400FB5'
+      Variable.getCode(code)
         .then(function (res) {
-          console.log('success', res)
-          if (res.status == '1') {
-            this.setState({ status: true })
-            this.props.getCodeData(res)
-          } else if (res.state == '0') {
-            this.setState({ status: false })
-          }
+          console.log(22222, res)
         })
-        .catch(function (error) {
-          console.log('error', error)
+        .catch(function(error) {
+          console.log(error)
         })
+
     }
   }
   componentWillMount() {
     this.getData()
-    console.log('组件即将挂载', this.props.brandType)
+    // console.log('组件即将挂载', this.props.brandType)
   }
   componentDidMount() {
-    console.log('组件渲染完成',this.props)
+
+    // console.log('组件渲染完成',this.props)
   }
-  componentWillReceiveProps (nextProps){
-    console.log(111111,this.props.brandType)
+  componentWillReceiveProps(nextProps) {
+    // console.log(111111,this.props.brandType)
   }
   render() {
-    let contentStyle1 = {
-      paddingTop : '4.4vw'
-    }
-    let contentStyle2 = {
-      paddingTop : '12.8vw'
-    }
-    let indexClass,contentClass,logoClass,pClass;
-      if (this.state.brandJudge) {
-        
-      
-        contentClass = contentStyle1
-        logoClass = 'logo'
-        pClass = 'p1'
-      }else{
-        
-       
-        contentClass = contentStyle2
-        logoClass = 'logo2'
-        pClass = 'p2'
-      }
     return (
       <div className="index">
         <div className='content'>
           <div className='logo'></div>
-          <p className={pClass}>{this.state.brand}正品查询平台</p>
+          <p className='p-text'></p>
           <Quality status={this.state.status} />
-          <Error status={this.state.status}/>
+          <Error status={this.state.status} />
         </div>
       </div>
     )
@@ -103,12 +80,12 @@ class Index extends Component {
 
 
 const mapStateToProps = store => ({
-  codeData: store.codeData,
-  brandType: store.brandType
+  codeData: store.codeData
+
 })
 const mapDispatchToProps = dispatch => ({
   getCodeData: (arr) => dispatch(getCodeData(arr)),
-  getBrandType: (arr) => dispatch(getBrandType(arr))
+
 })
 export default connect(
   mapStateToProps,

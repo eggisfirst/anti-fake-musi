@@ -19,20 +19,15 @@ class Error extends Component {
       show : {
         display : this.props.status ? 'none' : 'block'
       }
-    }
-    let errorPicClass,hClass
-    if (this.props.brandType){
-      errorPicClass = 'tips-picture'
-      hClass = 'h1'
-    }else {
-      errorPicClass = 'tips-picture2'
-      hClass = 'h2'
     }  
     return (
       <div className='error' style={styleComponent.show}>
-        <div className={errorPicClass}></div>
-        <h1 className={hClass}>您好，<span>暂时无法查询到</span>此商品</h1>
-        <h1 className={hClass}>请联系400客服进行查询或<span className='takeback' onClick={this.clickMsg}>立即反馈</span></h1>
+        <div className='tips-picture'></div>
+        <h1 className='h-text'><span>暂时无法查询</span>到此商品</h1>
+        <h1 className='h-text'>请联系400-777-0077客服进行查询或</h1>
+        <h1 className='h-text'>
+          <span className='takeback' onClick={this.clickMsg}>立即反馈</span>
+        </h1>
         <Msgbox/>
       </div>
     )

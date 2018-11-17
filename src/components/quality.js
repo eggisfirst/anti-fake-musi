@@ -26,8 +26,11 @@ class Quality extends Component {
         )
     }
   }
-  componentWillMount () {
+  componentDidMount () {
     this.setData()
+  }
+  componentWillReceiveProps (nextProps){
+    
     console.log('组件即将挂载',this.props)
   }
   render () {
@@ -42,8 +45,8 @@ class Quality extends Component {
           (() => {
             let type
             switch(item.key){
-              case 'brand':
-                type = '品牌'
+              case 'deliverNo':
+                type = '出货单号'
                 break;
               case 'moNo':
                 type = '制号令'
@@ -102,22 +105,16 @@ class Quality extends Component {
         }</span>
       </li>
     )
-    let tipsClass,hClass
-    if (this.props.brandType){
-      tipsClass = 'tips-picture'
-      hClass = 'h1'
-    }else {
-      tipsClass = 'tips-picture2'
-      hClass = 'h2'
-    }
+    
+   
     return (
       <div className='quality' style={styleComponent.show}>
-        <div className={tipsClass}></div>
-        <h1 className={hClass}>
+        <div className='tips-picture'></div>
+        <h1 className='h-text'>
           您好，您所查询的商品是
           <span>{this.times(this.props.codeData.count)}</span>验证
         </h1>
-        <h1 className={hClass}>
+        <h1 className='h-text'>
           您所购买的商品是慕思品牌的<span>正品</span>，请放心使用!
         </h1>
         <div className='details'>
@@ -136,8 +133,7 @@ class Quality extends Component {
 }
 
 const mapStateToProps = store => ({
-  codeData: store.codeData,
-  brandType: store.brandType
+  codeData: store.codeData
 })
 const mapDispatchToProps = dispatch => ({
   getCodeData: (arr) => dispatch(getCodeData(arr))
