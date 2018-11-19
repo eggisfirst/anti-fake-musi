@@ -10,7 +10,7 @@ let init = (function () {
     // secretKey : '477a1d7cc03d21d5abce55ec12170d33',
     //获取防伪码数据
     getCode : (code) => {
-      return new Promise(function (res, ect) {
+      return new Promise(function (resolve,reject) {
         if (key) {
           key = false
           axios.get(`${path}antiFakeVerify`, {
@@ -20,10 +20,7 @@ let init = (function () {
           })
             .then((res) => {
               key = true
-              console.log(1234,res.data.status)
-              if (res.data.status == 1) {
-                
-              }
+              resolve(res)
             })
             .catch((error) => {
               key = true

@@ -53,23 +53,30 @@ class Msgbox extends Component {
     //提交
     this.submitMsg = () => {
       let phoneNum = this.state.inpNumVal
-      let name = this.state.inpNameVal
-      if(name === ''){
-        alert('请填写姓名')
+      let usename = this.state.inpNameVal
+      let isName = Variable.testName(this.state.inpNameVal) 
+      //判断姓名格式
+      if(!isName){
+        alert('请填写真实姓名')
       }
       //判断手机号码格式是否正确
+      // if (code) {
+      //   if (code.length > 20 && code.length < 50) {
+
+      //   }
+      // }
       let isPhoneNum = Variable.testPhone(phoneNum)
       if (isPhoneNum) {
-        axios.get(`${Variable.path}getPrizes`,{
-          params:{
-          //  name : name,
-          //  phone : phoneNum
-          data:'2018-11-12',
-          type:'1111'
-          }
+        axios.post(`${Variable.path}saveAntiFakeVerify`,{
+          phone: phoneNum,
+          secretKey: '477a1d7cc03d21d5abce55ec12170d33',
+          securityCode: '3DFAC448-75BD-48E5-A272-236389400F',
+          timestamp: '1542593518016',
+          username: usename,
+          sign: 'cecf7bc854f190372cf9259103386720d8b2604c'
         })
-        .then((res) => {
-          console.log('提交成功',res)
+        .then((response) => {
+          console.log('提交成功',response)
           this.props.tips(true)
         })
         .catch((error) => {

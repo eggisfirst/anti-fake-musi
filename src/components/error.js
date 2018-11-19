@@ -3,21 +3,33 @@ import '../scss/components/error.scss'
 import Msgbox from './msgbox';
 import { connect } from 'react-redux';
 import { clickBtn } from '../action'
+import Variable from '../variable/variable'
 
 class Error extends Component {
   constructor (props) {
     super (props)
     this.state = {
-    
+      status : true
     }
     this.clickMsg = () => {
       this.props.clickBtn(true)
     }
+    // let code = Variable.getQueryString('barCode')
+    //   if (code == null) {
+    //     this.setState({
+    //       status : true
+    //     })
+    //   } else {
+    //     this.setState({
+    //       status : false
+    //     })
+     
+    //   }
   }
   render () {
     const styleComponent = {
       show : {
-        display : this.props.status ? 'none' : 'block'
+        display : this.state.status ? 'block' : 'none'
       }
     }  
     return (
@@ -35,8 +47,8 @@ class Error extends Component {
 }
 
 const mapStateToProps = store => ({
-  clicks: store.clicks,
-  brandType: store.brandType
+  clicks: store.clicks
+  
 })
 const mapDispatchToProps = dispatch => ({
   clickBtn: (arr) => dispatch(clickBtn(arr))

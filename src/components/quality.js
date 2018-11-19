@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../scss/components/quality.scss'
+import Variable from '../variable/variable'
 import { connect } from 'react-redux';
 import { getCodeData } from '../action'
 
@@ -7,7 +8,8 @@ class Quality extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      arrayKey : []
+      arrayKey : [],
+      status:false
     }
     //验证次数
     this.times = (count) => {
@@ -17,34 +19,55 @@ class Quality extends Component {
         return "第" + count + '次'
       }
     }
+    //判断code是否存在
+    this.judgeCode = () => {
+      let code = Variable.getQueryString('barCode')
+      if (code) {
+        if (code.length > 20 && code.length < 50) {
+          this.setState({
+            status: true
+          })
+          this.setData()
+        }  
+      } else {
+        this.setState({
+          status: false
+        })
+      }
+    }
     //处理数据，返回数组形式
     this.setData = () => {
-      console.log(Object.keys(this.props.codeData))
-      Object.keys(this.props.codeData).forEach(key =>
-        this.state.arrayKey.push({key:key})
-        // console.log(key,this.props.codeData[key])
-        )
+      let code = '3DFAC448-75BD-48E5-A272-236389400FB5'
+      let _this = this
+      Variable.getCode(code)
+        .then(function (res) {
+          _this.props.getCodeData(res.data)
+          let arr = []
+          Object.keys(_this.props.codeData).forEach(item =>
+            arr.push({key: item})
+          )
+          _this.setState({'arrayKey': arr})
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     }
   }
-  componentDidMount () {
-    this.setData()
-  }
-  componentWillReceiveProps (nextProps){
-    
-    console.log('组件即将挂载',this.props)
+  componentWillMount () {
+    this.judgeCode()
   }
   render () {
     const styleComponent = {
       show : {
-        display : this.props.status ? 'block' : 'none'
+        display : this.state.status ? 'block' : 'none'
       }
     }    
-    const data = this.state.arrayKey.map((item, i) => 
+    let data =  this.state.arrayKey.map((item, i) => 
       <li key={i}>
         <span>{
           (() => {
             let type
-            switch(item.key){
+            switch(item.key) {
               case 'deliverNo':
                 type = '出货单号'
                 break;
@@ -76,8 +99,8 @@ class Quality extends Component {
           (() => {
             let type
             switch(item.key){
-              case 'brand':
-                type = this.props.codeData.brand
+              case 'deliverNo':
+                type = this.props.codeData.deliverNo
                 break;
               case 'moNo':
                 type = this.props.codeData.moNo
@@ -103,10 +126,8 @@ class Quality extends Component {
             return type
           })()
         }</span>
-      </li>
+      </li> 
     )
-    
-   
     return (
       <div className='quality' style={styleComponent.show}>
         <div className='tips-picture'></div>
