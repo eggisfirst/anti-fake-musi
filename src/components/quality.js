@@ -8,8 +8,7 @@ class Quality extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      arrayKey : [],
-      status:false
+     
     }
     //验证次数
     this.times = (count) => {
@@ -19,50 +18,24 @@ class Quality extends Component {
         return "第" + count + '次'
       }
     }
-    //判断code是否存在
-    this.judgeCode = () => {
-      let code = Variable.getQueryString('barCode')
-      if (code) {
-        if (code.length > 20 && code.length < 50) {
-          this.setState({
-            status: true
-          })
-          this.setData()
-        }  
-      } else {
-        this.setState({
-          status: false
-        })
-      }
-    }
     //处理数据，返回数组形式
-    this.setData = () => {
-      let code = '3DFAC448-75BD-48E5-A272-236389400FB5'
-      let _this = this
-      Variable.getCode(code)
-        .then(function (res) {
-          _this.props.getCodeData(res.data)
-          let arr = []
-          Object.keys(_this.props.codeData).forEach(item =>
-            arr.push({key: item})
-          )
-          _this.setState({'arrayKey': arr})
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
-    }
+ 
   }
   componentWillMount () {
-    this.judgeCode()
+   
   }
   render () {
     const styleComponent = {
       show : {
-        display : this.state.status ? 'block' : 'none'
+        display : this.props.status ? 'block' : 'none'
       }
-    }    
-    let data =  this.state.arrayKey.map((item, i) => 
+    }  
+     //转化数据格式 
+     let arr = []
+     Object.keys(this.props.codeData).forEach(item =>
+       arr.push({ key : item }),
+     )  
+    let data =  arr.map((item, i) => 
       <li key={i}>
         <span>{
           (() => {

@@ -9,7 +9,7 @@ class Error extends Component {
   constructor (props) {
     super (props)
     this.state = {
-      status : true
+  
     }
     this.clickMsg = () => {
       this.props.clickBtn(true)
@@ -29,7 +29,7 @@ class Error extends Component {
   render () {
     const styleComponent = {
       show : {
-        display : this.state.status ? 'block' : 'none'
+        display : this.props.status ? 'none' : 'block'
       }
     }  
     return (

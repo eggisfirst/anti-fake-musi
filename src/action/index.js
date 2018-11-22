@@ -14,3 +14,11 @@ export const getBrandType = (arr) => ({
   type : 'GET_BRAND_TYPE',
   arr
 })
+export const getBarCode = (arr) => ({
+  type : 'GET_BARCODE',
+  arr
+})
+export const getStatus = (arr) => ({
+  type : 'STATUS_CHANGE',
+  arr
+})
