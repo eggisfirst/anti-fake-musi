@@ -1,6 +1,7 @@
 {
   "name": "demo2",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -29,5 +30,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "js-sha1": "^0.6.0",
+    "sha1": "^1.1.1",
+    "weixin-js-sdk": "^1.4.0-test"
+  }
 }

@@ -5,6 +5,8 @@ import codeData from './codeData'
 import brandType from './brandType'
 import barCode from './barCode'
 import statusChange from './statusChange'
+import submitTips from './submitSuc'
+
 // import visibilityFilter from './visibilityFilter'
 
 const todoApp = combineReducers({
@@ -13,7 +15,8 @@ const todoApp = combineReducers({
   codeData,
   brandType,  
   barCode,
-  statusChange
+  statusChange,
+  submitTips
 
 })
 

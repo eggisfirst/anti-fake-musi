@@ -63,6 +63,14 @@
         span:nth-child(1){
           flex: 1;  
           text-align-last: justify; 
+          text-align: justify;
+          height: 0;
+        }
+        span:nth-child(1)::after{
+          content: '';
+          height: 0;
+          width: 100%;
+          display: inline-block;
         }
         span:nth-child(2){
           flex: 2;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../scss/components/quality.scss'
-import Variable from '../variable/variable'
 import { connect } from 'react-redux';
 import { getCodeData } from '../action'
 
@@ -21,9 +20,7 @@ class Quality extends Component {
     //处理数据，返回数组形式
  
   }
-  componentWillMount () {
-   
-  }
+
   render () {
     const styleComponent = {
       show : {

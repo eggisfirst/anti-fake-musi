@@ -3,7 +3,9 @@ import '../scss/components/error.scss'
 import Msgbox from './msgbox';
 import { connect } from 'react-redux';
 import { clickBtn } from '../action'
-import Variable from '../variable/variable'
+import { submitSuc } from '../action'
+import { tips } from '../action'
+import Tips from './tips';
 
 class Error extends Component {
   constructor (props) {
@@ -12,19 +14,18 @@ class Error extends Component {
   
     }
     this.clickMsg = () => {
-      this.props.clickBtn(true)
+      if (this.props.submitTips) {
+        this.props.clickBtn(true)
+      }else {
+        this.props.clickBtn(false)
+        this.props.tips(true)
+      }
     }
-    // let code = Variable.getQueryString('barCode')
-    //   if (code == null) {
-    //     this.setState({
-    //       status : true
-    //     })
-    //   } else {
-    //     this.setState({
-    //       status : false
-    //     })
-     
-    //   }
+  
+  }
+  componentWillMount () {
+    this.props.submitSuc(true)
+    this.props.tips(false)
   }
   render () {
     const styleComponent = {
@@ -41,17 +42,21 @@ class Error extends Component {
           <span className='takeback' onClick={this.clickMsg}>立即反馈</span>
         </h1>
         <Msgbox/>
+        <Tips />
       </div>
     )
   }
 }
 
 const mapStateToProps = store => ({
-  clicks: store.clicks
-  
+  clicks: store.clicks,
+  brandType: store.brandType,
+  submitTips: store.submitTips
 })
 const mapDispatchToProps = dispatch => ({
-  clickBtn: (arr) => dispatch(clickBtn(arr))
+  clickBtn: (arr) => dispatch(clickBtn(arr)),
+  submitSuc: (arr) => dispatch(submitSuc(arr)),
+  tips: (arr) => dispatch(tips(arr))
 })
 export default connect(
   mapStateToProps,

@@ -1,0 +1,67 @@
+.rules{
+  width: 69.2vw;
+  margin: 0 auto;
+  ul{
+    margin-bottom: 4vw;
+    li{
+      display: flex;
+      justify-content: space-between;
+      .icon{
+        flex: 1;    
+        .icon1{
+          background: url(../../images/icon1.png) no-repeat center;
+          background-size: 100% 100%;
+          width: 10.66vw;
+          height: 10.66vw;
+          margin: auto;
+        }
+        .down{
+          background: url(../../images/down.png) no-repeat center;
+          background-size: 100% 100%;
+          width: 4vw;
+          height: 3.86vw;
+          margin: auto;
+          margin-top: 4vw; 
+        } 
+        .icon2{
+          background: url(../../images/icon2.png) no-repeat center;
+          background-size: 100% 100%;
+          width: 10.13vw;
+          height: 10.13vw;
+          margin:auto;
+          margin-top: 4vw;
+        }
+        .icon3{
+          background: url(../../images/icon3.png) no-repeat center;
+          background-size: 100% 100%;
+          width: 10.6vw;
+          height: 10.6vw;
+          margin:auto;
+          margin-top: 4vw;
+        }
+      }
+      .text{
+        flex: 5;
+        color: #909090;
+        padding-left: 2vw;
+        padding-top: 4vw;
+        span{
+          font-size: 6.13vw;
+          letter-spacing: 5px;
+        }
+        .p1{
+          font-size: 3.46vw;
+          letter-spacing: 1px;
+          line-height: 2em;
+        }
+        .p2{
+          font-size: 2.66vw;
+          line-height: 1.5em;
+        }
+      }
+      .textFirst{
+        margin-top: -3vw;
+      }
+    }
+  }
+}

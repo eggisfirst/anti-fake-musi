@@ -11,9 +11,16 @@
 } */
 
 input{
-  background:none;  
-	outline:none;  
-  border:0px;
+  outline:none;  
+  text-indent: 0;
+  background: transparent;
+  border: 0 none;
+  resize:none; 
+  outline:none;  
+  -webkit-appearance:none;  
+  line-height: normal; 
+  border-radius:0;
+  font-size: 3.73vw;
 }
 input::-webkit-input-placeholder{
   color:#999;

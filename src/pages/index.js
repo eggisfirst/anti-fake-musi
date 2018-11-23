@@ -7,7 +7,6 @@ import Error from '../components/error'
 
 //redux
 import { connect } from 'react-redux'
-import { getBrandType } from '../action'
 import { getCodeData } from '../action'
 import { getStatus } from '../action'
 import { getBarCode } from '../action'
@@ -19,7 +18,9 @@ class Index extends Component {
 
     }
     this.getData = () => {
-      let code = Variable.getQueryString('barCode')
+      let url = Variable.testUrl(window.location.href)
+      let code = Variable.GetQueryString('barCode',url)
+      this.props.getBarCode(code)
         //判断参数的长度
         if (code.length >= 20 && code.length <= 50) {
           this.sendCode(code)
@@ -30,6 +31,7 @@ class Index extends Component {
     this.sendCode = (code) => {
       Variable.getCode(code)
         .then((res) => {
+          console.log('有发请求')
           if (res.data.status == 1) {
             this.props.getStatus(true)
             this.props.getCodeData(res.data)
@@ -48,6 +50,7 @@ class Index extends Component {
   render() {
     return (
       <div className="index">
+        <div className='banner'></div>
         <div className='content'>
           <div className='logo'></div>
           <p className='p-text'></p>

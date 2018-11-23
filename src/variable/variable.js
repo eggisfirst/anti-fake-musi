@@ -6,8 +6,7 @@ let init = (function () {
   let key = true
   let temp = {
     path : path, 
-    // appId :'wx877a7e37b0de0a87',
-    // secretKey : '477a1d7cc03d21d5abce55ec12170d33',
+    secretKey : '477a1d7cc03d21d5abce55ec12170d33',
     //获取防伪码数据
     getCode : (code) => {
       return new Promise(function (resolve,reject) {
@@ -31,6 +30,25 @@ let init = (function () {
       })
       
     },
+    GetQueryString: (name, url) => {
+      let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      url = url.substr(url.indexOf('?') + 1)
+      let r = url.match(reg);  //获取url中"?"符后的字符串并正则匹配
+      let context = "";
+      if (r != null)
+        context = r[2];
+      reg = null;
+      r = null;
+      return context == null || context == "" || context == "undefined" ? "" : context;
+    },
+     //检测url有没有#并去除#
+     testUrl: (name) => {
+      if (name.indexOf("#") != -1) {
+        name = name.substring(name.indexOf(""), name.indexOf('#/')) + name.substring(name.indexOf("#/") + 2)
+        return name
+      }
+      return name
+    },
     //获取url参数
     getQueryString : (name) => {
       let reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i')
@@ -38,7 +56,7 @@ let init = (function () {
       if (r != null) {
         return unescape(r[2]);
       }
-      return null;
+      return '';
     },
     //验证手机格式
     testPhone : (phone) => {
@@ -64,28 +82,55 @@ let init = (function () {
       }
       return sha1.hex(str)
     },
-     // 获取token码
-    //  token : (function() {
-    //   return new Promise(function(resolve, reject) {
-    //     axios({
-    //       method: 'post',
-    //       url: 'https://derucci.net/app/token.api',
-    //       params: {
-    //         key: '994061370314006529',
-    //         secretKey: secretKey
-    //       }
-    //     })
-    //     .then((response) => {
-    //       if (response) {
-    //         resolve(response.data.token)
-    //       }
-    //     }).catch((error) => {
-    //       if (error) {
-    //         alert('token获取失败！')
-    //       }
-    //     })
-    //   })
-    // }())
+     //获取调用微信JS接口的临时票据
+     getTicket: () => {
+      let url = window.location.href
+      let timestamp = temp.getTimestamp()
+      let secretKey = temp.secretKey
+      let arr = [
+        ['url', url],
+        ['secretKey', secretKey],
+        ['timestamp', timestamp]
+      ]
+      let sign = temp.getSign(arr)
+      return new Promise(function (resolve, reject) {
+        axios.get('https://derucci.net/api/public/v1/getTicket', {
+          params: {
+            url: url,
+            timestamp: timestamp,
+            secretKey: secretKey,
+            sign: sign
+          }
+        })
+          .then((res) => {
+            if (res) {
+              // console.log ('获取数据',res)
+              resolve(res.data)
+            }
+          })
+          .catch((error) => {
+            console.log('发生错误', error)
+          })
+      })
+    },
+     //验证网址是否derucci
+     isDerucci : (url) => {
+      let c = url.substring(url.indexOf(''),url.indexOf('web'))
+      if (c ==='https://derucci.net/'){
+        return true
+      }
+      return false
+    },
+    //是否有barCode
+    getString: (name) => {
+      let url =  name
+      let c = url.substring(url.indexOf('?barCode=') + 1, url.indexOf('='))
+      if (c === 'barCode'){
+        return true
+      }else{
+        return false
+      }
+    }
 
   }
   return temp

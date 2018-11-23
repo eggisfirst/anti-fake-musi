@@ -22,7 +22,8 @@ const [AsyncIndex,AsyncHome] = [
     loader: () => import ('../pages/index'),
     loading: MyLoadingComponent,
     delay:300   //默认200
-  },{
+  }), 
+  Loadable({
     loader: () => import ('../pages/home'),
     loading: MyLoadingComponent,
     delay:300   //默认200
