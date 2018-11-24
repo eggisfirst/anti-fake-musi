@@ -15,18 +15,26 @@ class Index extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      errorStatus:true
     }
     this.getData = () => {
       let url = Variable.testUrl(window.location.href)
       let code = Variable.GetQueryString('barCode',url)
       this.props.getBarCode(code)
         //判断参数的长度
+        console.log(123,code.length)
+      if(Variable.getString(url)){
         if (code.length >= 20 && code.length <= 50) {
           this.sendCode(code)
         } else{
           this.props.getStatus(false)
-        } 
+          this.setState({errorStatus:false})
+        }
+      }else{
+        this.props.getStatus(false)
+        this.setState({errorStatus:true})
+      }
+         
     }
     this.sendCode = (code) => {
       Variable.getCode(code)
@@ -37,6 +45,7 @@ class Index extends Component {
             this.props.getCodeData(res.data)
           } else if (res.data.status == 0) {
             this.props.getStatus(false)
+            this.setState({errorStatus:false})
           }
         })
         .catch((error) => {
@@ -55,7 +64,7 @@ class Index extends Component {
           <div className='logo'></div>
           <p className='p-text'></p>
           <Quality status={this.props.statusChange} />
-          <Error status={this.props.statusChange} />
+          <Error status={this.state.errorStatus} />
         </div>
       </div>
     )

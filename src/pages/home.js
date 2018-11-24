@@ -43,22 +43,34 @@ class Home extends Component {
         scanType: ['qrCode', 'barCode'],
         success: (res) => {
           let result = res.resultStr
-          console.log(result)
-          //判断是我们的网址
-          if (Variable.isDerucci(result)) {
-            //判断是否有参数
-            console.log('是我们的网址')
-            if (Variable.getString(result)) {
-              console.log('有参数')
-              let code = Variable.GetQueryString('barCode',result)
-              console.log('参数是',code)
-              this.props.history.push('/' + '?barCode=' + code)
-            } else {
-              console.log('没有参数')
-              this.props.history.push('/' + '?barCode=')
+          let isUrl = Variable.isDerucci(result) || Variable.isZsDerucci(result)
+          if(!isUrl){
+          //1.20-50的字符串且不是我们的网址
+            if (result.length >=20 && result.length <=50){
+              this.props.history.push('/' + '?barCode=' + result)
+            }else{
+              alert('该二维码不是防伪码')
+            } 
+          }else{
+            //2.是我们的网址
+            if (Variable.isDerucci(result)){
+              let code = Variable.GetQueryString('b',result) 
+              //3.有参数
+              if (code.length !== 0){
+                this.props.history.push('/' + '?barCode=' + code)
+              }else {
+                this.props.history.push('/' + '?barCode=')
+              }
+            }else if(Variable.isZsDerucci(result)){
+              let code2 = Variable.GetQueryString('barCode',result)
+              if (code2.length !== 0){
+                this.props.history.push('/' + '?barCode=' + code2)
+              }else {
+                this.props.history.push('/' + '?barCode=')
+              }
+            } else{
+              alert ('该二维码不是防伪码')
             }
-          } else {
-            alert('该二维码不是防伪码')
           }
         }
       })
