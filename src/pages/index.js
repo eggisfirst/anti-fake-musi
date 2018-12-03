@@ -18,12 +18,15 @@ class Index extends Component {
       errorStatus:true
     }
     this.getData = () => {
-      let url = Variable.testUrl(window.location.href)
-      let code = Variable.GetQueryString('barCode',url)
+      const url = Variable.testUrl(window.location.href)
+      let [code, barCode, b] = ['', Variable.GetQueryString('barCode', url), Variable.GetQueryString('b', url)]
+      code = barCode ? barCode : (b ? b : '')
+      console.log('防伪码：', code)
       this.props.getBarCode(code)
         //判断参数的长度
         console.log(123,code.length)
-      if(Variable.getString(url)){
+      if(code){
+        console.log(console.log('successurl'))
         if (code.length >= 20 && code.length <= 50) {
           this.sendCode(code)
         } else{
@@ -31,6 +34,7 @@ class Index extends Component {
           this.setState({errorStatus:false})
         }
       }else{
+        console.log('errorurl')
         this.props.getStatus(false)
         this.setState({errorStatus:true})
       }

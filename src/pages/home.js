@@ -17,11 +17,14 @@ class Home extends Component {
     this.rulesClickIn = () => {
       this.setState({ isToggleOn: false })
     }
+    // this.scanQr = (res) => {
+    //   // let result = 'https://zs.derucci.net/service/index.html?state=1&barCode=005056801F5E1ED8AEF55BA4C684CE18'
+      
+    // }
     //微信配置
     this.wxConfig = () => {
       Variable.getTicket()
         .then(function (res) {
-          console.log(res)
           wx.config({
             debug: false,
             appId: 'wx877a7e37b0de0a87',
@@ -32,12 +35,12 @@ class Home extends Component {
           })
         })
         .catch(function (error) {
-          console.log('error', error)
         })
     }
     //调用扫一扫
     this.scanCode = () => {
       console.log('调用扫一扫')
+      // let _this = this
       wx.scanQRCode({
         needResult: 1,
         scanType: ['qrCode', 'barCode'],
@@ -45,8 +48,8 @@ class Home extends Component {
           let result = res.resultStr
           let isUrl = Variable.isDerucci(result) || Variable.isZsDerucci(result)
           if(!isUrl){
-          //1.20-50的字符串且不是我们的网址
-            if (result.length >=20 && result.length <=50){
+          //1.20-50的字符串且不是我们的网址(20～50的字符串指的是防伪码，不包含网址。)
+            if (result.length >=20){
               this.props.history.push('/' + '?barCode=' + result)
             }else{
               alert('该二维码不是防伪码')
@@ -54,7 +57,8 @@ class Home extends Component {
           }else{
             //2.是我们的网址
             if (Variable.isDerucci(result)){
-              let code = Variable.GetQueryString('b',result) 
+              let code = Variable.GetQueryString('b',result)
+              console.log('62防伪码', result)
               //3.有参数
               if (code.length !== 0){
                 this.props.history.push('/' + '?barCode=' + code)
@@ -62,6 +66,7 @@ class Home extends Component {
                 this.props.history.push('/' + '?barCode=')
               }
             }else if(Variable.isZsDerucci(result)){
+              console.log('斩杀个防伪码', result)
               let code2 = Variable.GetQueryString('barCode',result)
               if (code2.length !== 0){
                 this.props.history.push('/' + '?barCode=' + code2)

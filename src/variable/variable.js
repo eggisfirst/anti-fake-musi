@@ -115,16 +115,16 @@ let init = (function () {
     },
      //验证网址是否derucci
      isDerucci : (url) => {
-      let c = url.substring(url.indexOf(''),url.indexOf('s/'))
-      if (c ==='https://derucci.net/'){
+      // let c = url.substring(url.indexOf(''),url.indexOf('s/'))
+      if (url.indexOf('http://derucci.net') !== -1 || url.indexOf('https://derucci.net') !== -1){
         return true
       }
       return false
     },
     //
     isZsDerucci : (url) => {
-      let c = url.substring(url.indexOf(''),url.indexOf('service'))
-      if (c ==='http://zs.derucci.net/'){
+      // let c = url.substring(url.indexOf(''),url.indexOf('service'))
+      if (url.indexOf('zs.derucci.net') !== -1){
         return true
       }
       return false
