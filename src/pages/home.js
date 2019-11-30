@@ -3,7 +3,8 @@ import '../scss/home.scss'
 import Rules from './../components/rules';
 import Variable from '../variable/variable'
 import wx from 'weixin-js-sdk'
-
+import axios from 'axios'
+import {token} from '../request/index'
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -23,8 +24,10 @@ class Home extends Component {
     // }
     //微信配置
     this.wxConfig = () => {
+      console.log('config')
       Variable.getTicket()
         .then(function (res) {
+          console.log('res',res)
           wx.config({
             debug: false,
             appId: 'wx877a7e37b0de0a87',
@@ -35,6 +38,7 @@ class Home extends Component {
           })
         })
         .catch(function (error) {
+          console.log('error',error)
         })
     }
     //调用扫一扫
@@ -45,6 +49,7 @@ class Home extends Component {
         needResult: 1,
         scanType: ['qrCode', 'barCode'],
         success: (res) => {
+          // alert('suc',res)
           let result = res.resultStr
           let isUrl = Variable.isDerucci(result) || Variable.isZsDerucci(result)
           if(!isUrl){
@@ -77,13 +82,21 @@ class Home extends Component {
               alert ('该二维码不是防伪码')
             }
           }
+        },
+        fail:(err) => {
+          // alert('err',err)
         }
       })
     }
   }
-
+  hasLogin() {
+    token().then(res => {
+      window.localStorage.setItem('token', JSON.stringify(res.data))
+      this.wxConfig()
+    })
+  }
   componentWillMount() {
-    this.wxConfig()
+    this.hasLogin()
   }
   render() {
     const styleComponent = {

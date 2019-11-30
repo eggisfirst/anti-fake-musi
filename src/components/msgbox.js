@@ -14,12 +14,12 @@ class Msgbox extends Component {
       phoneTips: '',
       inpNumVal: '',
       inpNameVal: '',
-      close1:'',
-      close2:'',
+      close1: '',
+      close2: '',
       key: true
-     
+
     }
-   
+
     //获取手机号码
     this.handelNumChange = (e) => {
       this.setState({
@@ -29,12 +29,12 @@ class Msgbox extends Component {
     }
     //获取姓名
     this.handelNameChange = (e) => {
-      this.setState({inpNameVal: e.target.value})
+      this.setState({ inpNameVal: e.target.value })
     }
     //清空input框
     this.clearBtn1 = () => {
       console.log('clickevent')
-      this.setState({inpNameVal: ''})
+      this.setState({ inpNameVal: '' })
     }
     this.clearBtn2 = () => {
       this.setState({
@@ -44,16 +44,16 @@ class Msgbox extends Component {
     }
     //光标聚焦
     this.focusInput = () => {
-      this.setState({close1 : true})
+      this.setState({ close1: true })
     }
     this.focusInput1 = () => {
-      this.setState({close2 : true})
+      this.setState({ close2: true })
     }
     this.blurInput = () => {
-      this.setState({close1 : false})
+      this.setState({ close1: false })
     }
     this.blurInput1 = () => {
-      this.setState({close2 : false})
+      this.setState({ close2: false })
     }
     //关闭反馈弹框
     this.closeBtn = () => {
@@ -66,9 +66,11 @@ class Msgbox extends Component {
       let isName = Variable.testName(name)
       let isPhoneNum = Variable.testPhone(phoneNum)
       let code;
-      if (this.props.barCode === ''){
+
+      let token = JSON.parse(localStorage.getItem('token')).access_token
+      if (this.props.barCode === '') {
         code = '防伪码为空'
-      }else {
+      } else {
         code = this.props.barCode
       }
       //判断名字格式
@@ -80,18 +82,27 @@ class Msgbox extends Component {
           if (this.state.key) {
             axios({
               method: 'post',
-              url: `${Variable.path}saveAntiFakeVerify`,
+              url: `${Variable.path}api/antifake/v1/saveAntiFakeVerify`,
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
               },
               params: {
-                securityCode:code,
-                phone:phoneNum,
-                username:name
+                securityCode: code,
+                phone: phoneNum,
+                username: name
+              },
+              // eslint-disable-next-line no-dupe-keys
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                'sign': Variable.getTokenSign({
+                  securityCode: code,
+                  phone: phoneNum,
+                  username: name
+                }, token)
               },
             })
               .then((res) => {
-                if(res.data.status == 1) {
+                if (res.data.status == 1) {
                   console.log('提交成功', res)
                   this.props.submitSuc(false)
                   this.setState({ key: false })
@@ -138,14 +149,14 @@ class Msgbox extends Component {
             <div className='name'>
               <div className='name-icon'></div>
               <input type='text' placeholder='请填写姓名'
-                onChange = {this.handelNameChange.bind(this)}
-                onFocus = {this.focusInput}
-                onBlur = {this.blurInput}
-                value= {this.state.inpNameVal}
+                onChange={this.handelNameChange.bind(this)}
+                onFocus={this.focusInput}
+                onBlur={this.blurInput}
+                value={this.state.inpNameVal}
                 maxLength='10' />
               <div className='clear'
-                onTouchEnd = {this.clearBtn1}
-                style = {styleComponent.clearBtn1}>
+                onTouchEnd={this.clearBtn1}
+                style={styleComponent.clearBtn1}>
               </div>
             </div>
             <div className='phone'>
@@ -166,7 +177,7 @@ class Msgbox extends Component {
           </div>
           <input type='submit' value='提交' className='submit' onClick={this.submitMsg.bind(this)} />
         </div>
-        
+
       </div>
     )
   }
@@ -176,7 +187,7 @@ const mapStateToProps = store => ({
   clicks: store.clicks,
   todos: store.todos,
   submitSuc: store.submitSuc,
-  barCode : store.barCode
+  barCode: store.barCode
 })
 const mapDispatchToProps = dispatch => ({
   clickBtn: (arr) => dispatch(clickBtn(arr)),
