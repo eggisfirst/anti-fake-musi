@@ -3,7 +3,8 @@ import sha1 from 'js-sha1'
 
 let init = (function () {
   // const path = 'https://derucci.net/api/antifake/v1/'
-  const path = 'https://mobiletest.derucci.net/consumer-admin/'
+  const path = 'https://derucci.net/'
+  // const path = 'https://mobiletest.derucci.net/consumer-admin/'
   let key = true
   let temp = {
     path: path,
